@@ -86,14 +86,18 @@ export default function ProductsPage() {
 
       {/* Loading State */}
       {loading ? (
-        <div className="text-center text-green-500 font-extrabold mt-10 animate-pulse">
-               {/* Spinner */}
-      <div className="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+  <div className="flex flex-col items-center justify-center mt-10 text-green-800 font-extrabold animate-pulse space-y-4">
+    {/* Spinner */}
+    <div className="w-16 h-16 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
 
-          Fetching all products
-          <br />
-          This might take a few seconds, please wait!!
-        </div>
+    {/* Text */}
+    <div className="text-center">
+      <p>Fetching all products</p>
+      <p className="text-sm font-norma">
+        This might take a few seconds, please wait!!
+      </p>
+    </div>
+  </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 p-3 bg-gradient-to-br from-yellow-700 via-yellow-400 to-black">
           {products.map((p) => (
