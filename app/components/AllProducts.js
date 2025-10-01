@@ -87,6 +87,9 @@ export default function ProductsPage() {
       {/* Loading State */}
       {loading ? (
         <div className="text-center text-green-500 font-extrabold mt-10 animate-pulse">
+               {/* Spinner */}
+      <div className="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+
           Fetching all products
           <br />
           This might take a few seconds, please wait!!
