@@ -1,11 +1,13 @@
+
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true); // NEW: loading state
+  const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
   const [editProduct, setEditProduct] = useState({
     productName: "",
@@ -15,7 +17,9 @@ export default function ProductsPage() {
     reviewStars: 1,
     numberInStock: 1,
   });
-const router = useRouter();
+
+  const router = useRouter();
+
   // fetch products
   useEffect(() => {
     async function fetchProducts() {
@@ -25,7 +29,7 @@ const router = useRouter();
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
-        setLoading(false); // stop loading after request finishes
+        setLoading(false);
       }
     }
     fetchProducts();
@@ -34,10 +38,10 @@ const router = useRouter();
   // delete product
   async function deleteProduct(id) {
     if (!confirm("Are you sure you want to delete this product?")) return;
-    setLoading(true)
+    setLoading(true);
     await axios.delete(`/api/products/${id}`);
     setProducts((prev) => prev.filter((p) => p._id !== id));
-    setLoading(false)
+    setLoading(false);
   }
 
   // start editing
@@ -55,11 +59,11 @@ const router = useRouter();
 
   // save changes
   async function saveEdit(id) {
-    setLoading(true)
+    setLoading(true);
     const res = await axios.put(`/api/products/${id}`, editProduct);
     setProducts((prev) => prev.map((p) => (p._id === id ? res.data : p)));
     setEditingId(null);
-    setLoading(false)
+    setLoading(false);
   }
 
   // handle input changes
@@ -75,24 +79,24 @@ const router = useRouter();
   }
 
   return (
-
-    <div className="max-w-3xl mx-auto mt-20 space-y-6 text-black">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-500 via-black to-yellow-700 bg-clip-text text-transparent">
-        Products
+    <div className="max-w-7xl mx-auto mb-6 mt-20 px-4 sm:px-6 lg:px-8 space-y-8 text-black bg-gradient-to-br from-black via-white to-yellow-700">
+      <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-500 via-black to-yellow-700 bg-clip-text text-white">
+        All Products
       </h1>
 
       {/* Loading State */}
       {loading ? (
-        <div className="text-center text-white font-extrabold mt-10 animate-pulse">
-          Fetching all products<br />
+        <div className="text-center text-green-500 font-extrabold mt-10 animate-pulse">
+          Fetching all products
+          <br />
           This might take a few seconds, please wait!!
         </div>
       ) : (
-        <ul className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 p-3 bg-gradient-to-br from-yellow-700 via-yellow-400 to-black">
           {products.map((p) => (
-            <li
+            <div
               key={p._id}
-              className="p-6 bg-white rounded-xl shadow-md border border-gray-200"
+              className="bg-white p-6 rounded-xl shadow-md border border-gray-200"
             >
               {editingId === p._id ? (
                 <div className="space-y-4">
@@ -180,7 +184,7 @@ const router = useRouter();
                     placeholder="Number in Stock"
                   />
 
-                  {/* Buttons */}
+                  {/* Save/Cancel Buttons */}
                   <div className="flex gap-2">
                     <button
                       onClick={() => saveEdit(p._id)}
@@ -198,6 +202,15 @@ const router = useRouter();
                 </div>
               ) : (
                 <div>
+                  {/* Optimized Image */}
+                  <Image
+                    src="/dummy-Product.jpg"
+                    alt="Product"
+                    width={400}
+                    height={300}
+                    className="w-full aspect-[3/2] object-cover mb-4 rounded-lg"
+                  />
+
                   <h2 className="text-lg font-semibold text-gray-900">
                     {p.productName}
                   </h2>
@@ -234,26 +247,26 @@ const router = useRouter();
                   </div>
                 </div>
               )}
-            </li>
-          ))}
-        </ul>
-      )}
-            {/* Buttons */}
-        <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => router.push("/create-product")}
-                className="px-6 py-3 rounded-lg font-medium shadow-md bg-gradient-to-r from-green-500 via-yellow-500 to-black text-white hover:from-black hover:to-yellow-600 transition"
-              >
-                Create New Product
-              </button>
-              <button
-                onClick={() => router.push("/")}
-                className="px-6 py-3 rounded-lg font-medium shadow-md bg-gradient-to-r from-black via-blue-500 to-black text-white hover:via-black hover:to-yellow-600 transition"
-              >
-                Go to Customer's Site
-              </button>
             </div>
+          ))}
+        </div>
+      )}
+
+      {/* CTA Buttons */}
+      <div className="flex flex-wrap justify-center gap-4 mt-10">
+        <button
+          onClick={() => router.push("/create-product")}
+          className="px-6 mb-6 py-3 rounded-lg font-medium shadow-md bg-gradient-to-r from-green-500 via-yellow-500 to-black text-white hover:from-black hover:to-yellow-600 transition"
+        >
+          Create New Product
+        </button>
+        <button
+          onClick={() => router.push("/")}
+          className="px-6 mb-6 py-3 rounded-lg font-medium shadow-md bg-gradient-to-r from-black via-blue-500 to-black text-white hover:via-black hover:to-yellow-600 transition"
+        >
+          Go to Customer&apos;s Site
+        </button>
+      </div>
     </div>
-    
-);
+  );
 }

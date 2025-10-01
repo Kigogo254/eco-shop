@@ -13,11 +13,13 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-yellow-400 to-white p-6">
+    <div className="min-h-screen flex items-center mt-6 justify-center bg-gradient-to-br from-black via-yellow-400 to-white p-6">
+      
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-md bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl space-y-6 border border-yellow-400"
-      >
+       className="w-full max-w-md bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl space-y-6 border border-yellow-400 
+             mt-6 sm:mt-16 md:mt-16"
+>
         <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-black via-yellow-500 to-black bg-clip-text text-transparent">
           Admin Login
         </h2>

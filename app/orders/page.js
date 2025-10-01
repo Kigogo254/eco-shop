@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 
 export default function OrdersPage() {
@@ -7,7 +8,7 @@ export default function OrdersPage() {
       id: "ORD001",
       user: "John Doe",
       datetime: "2025-09-29 14:32",
-      status: "processing", // processing | shipped | cancelled
+      status: "processing",
       address: "123 Green Street, Springfield",
     },
     {
@@ -35,45 +36,47 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto mt-24 space-y-8 bg-gradient-to-br from-black via-yellow-400 to-white">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-500 via-black to-yellow-700 bg-clip-text text-transparent">
+    <div className="max-w-5xl mx-auto mt-24 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-yellow-700 via-yellow-400 to-black space-y-8 ">
+      <h1 className="text-3xl font-bold  text-white">
         Orders
       </h1>
 
       {orders.map((order) => (
         <div
           key={order.id}
-          className="p-6 bg-white shadow-lg rounded-xl border border-gray-200"
+          className="p-5 sm:p-6 bg-white shadow-md rounded-xl border border-gray-200 space-y-3"
         >
-          <div className="flex justify-between items-center">
+          {/* Top Section: Order ID and Status */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <h2 className="text-lg font-semibold text-yellow-800">
               Order ID: <span className="text-gray-700">{order.id}</span>
             </h2>
-            <p className={`font-bold ${getStatusColor(order.status)}`}>
+            <p className={`font-bold mt-2 sm:mt-0 ${getStatusColor(order.status)}`}>
               {order.status.toUpperCase()}
             </p>
           </div>
 
-          <p className="text-sm text-gray-600 mt-1">
-            Placed by <span className="font-medium">{order.user}</span> on{" "}
-            {order.datetime}
+          {/* User and Date Info */}
+          <p className="text-sm text-gray-600">
+            Placed by <span className="font-medium">{order.user}</span> on {order.datetime}
           </p>
 
-          <p className="text-sm text-gray-700 mt-3">
-            <span className="font-semibold">Shipping Address:</span>{" "}
-            {order.address}
+          {/* Shipping Address */}
+          <p className="text-sm text-gray-700">
+            <span className="font-semibold">Shipping Address:</span> {order.address}
           </p>
 
-          <div className="flex gap-3 mt-4">
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-3 mt-3">
             <button
               onClick={() => updateStatus(order.id, "cancelled")}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition"
+              className="flex-1 sm:flex-initial min-w-[140px] px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition"
             >
               Cancel
             </button>
             <button
               onClick={() => updateStatus(order.id, "shipped")}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+              className="flex-1 sm:flex-initial min-w-[180px] px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
             >
               Process for Shipping
             </button>

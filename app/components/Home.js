@@ -8,9 +8,20 @@ export default function HomeLanding() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
-      <div className="flex-1 bg-gradient-to-br from-black via-yellow-400 to-white">
-        <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          {/* Left Content */}
+      <div className="flex-1 bg-gradient-to-br from-yellow-700 via-yellow-400 to-black">
+        <div className="max-w-7xl mx-0.5 px-2 py-16 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* Left Banner */}
+           
+          <div className="flex justify-center md:justify-end ">
+            <Image
+              src="/banner.png" // replace with your image
+              alt="Eco Shop Admin"
+              width={500}
+              height={400}
+              className="rounded-2xl shadow-lg"
+            />
+          </div>
+                  {/* Right Content */}
           <div className="space-y-6">
             <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r text-white bg-clip-text">
               Welcome to Eco-Shop Admin Panel
@@ -43,19 +54,9 @@ export default function HomeLanding() {
             </div>
           </div>
 
-          {/* Right Image */}
-          <div className="flex justify-center md:justify-end">
-            <Image
-              src="/eco-admin.png" // replace with your image
-              alt="Eco Shop Admin"
-              width={500}
-              height={400}
-              className="rounded-2xl shadow-lg"
-            />
-          </div>
+ 
         </div>
       </div>
-
       {/* Footer */}
       <footer className="bg-black text-white text-center py-4">
         <p className="text-sm">

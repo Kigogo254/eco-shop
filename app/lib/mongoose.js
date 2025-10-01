@@ -5,8 +5,10 @@ export function mongooseConnect() {
   if (mongoose.connection.readyState === 1) {
     return mongoose.connection.asPromise(); 
   } else {
-    const uri =
-      "mongodb+srv://wambuapeter989_db_user:ZvnN2o22lnZjnMyd@cluster0.mcqezzl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    const uri = process.env.MONGODB_URI;
+   if (!uri) { return ("MONGODB_URI is not defined in environment variables")         
+       }
     return mongoose.connect(uri);
   }
+  
 }

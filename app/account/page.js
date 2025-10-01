@@ -22,23 +22,23 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto mt-24 p-6 bg-white rounded-xl shadow-lg border border-gray-200">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-500 via-black to-yellow-700 bg-clip-text text-transparent mb-6">
+    <div className="max-w-3xl mx-auto mt-24 p-6 bg-transparent  bg-gradient-to-br from-green-600 blue-600 to-yellow-700">
+      <h1 className="text-3xl font-bold text-yellow-400 bg-clip-text mb-6">
         Admin Account
       </h1>
 
       {!editing ? (
         <div className="space-y-4 text-black">
           <p>
-            <span className="font-semibold text-gray-800">Admin Name:</span>{" "}
+            <span className="font-semibold text-yellow-400">Admin Name:</span>{" "}
             {admin.name}
           </p>
           <p>
-            <span className="font-semibold text-gray-800">Secret Code:</span>{" "}
+            <span className="font-semibold text-yellow-400">Secret Code:</span>{" "}
             {admin.secretCode}
           </p>
           <p>
-            <span className="font-semibold text-gray-800">Password:</span>{" "}
+            <span className="font-semibold text-yellow-400">Password:</span>{" "}
             {admin.password}
           </p>
 
@@ -50,9 +50,9 @@ export default function AccountPage() {
           </button>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-4 bg-gradient-to-br from-blue-300 via-green-300 to-red-700 p-6 border rounded-md">
           {/* Admin Name */}
-          <div>
+          <div >
             <label className="block text-sm font-semibold text-yellow-600">
               Admin Name
             </label>

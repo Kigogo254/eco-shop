@@ -1,11 +1,10 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense } from "react";
 
-export default function ErrorDisplay() {
+function ErrorContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-
-  // Read error message passed via query string
   const errorMessage = searchParams.get("message") || "Something went wrong.";
 
   return (
@@ -21,5 +20,13 @@ export default function ErrorDisplay() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function ErrorDisplay() {
+  return (
+    <Suspense fallback={<div className="text-center mt-10 text-red-600">Loading error...</div>}>
+      <ErrorContent />
+    </Suspense>
   );
 }

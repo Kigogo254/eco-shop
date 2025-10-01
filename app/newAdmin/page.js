@@ -8,8 +8,8 @@ export default function NewAdmin() {
     router.push("/"); // redirect to products page
   }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-yellow-400 to-white p-6">
-      <form onSubmit={handleCreate} className="w-full max-w-md bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl space-y-6 border border-yellow-400">
+    <div className="min-h-screen flex items-center justify-center mt-10 bg-gradient-to-br from-black via-yellow-400 to-white p-6">
+      <form onSubmit={handleCreate} className="w-full mt-6 max-w-md bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl space-y-6 border border-yellow-400">
         <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-black via-yellow-500 to-black bg-clip-text text-transparent">
           Register as Admin
         </h2>
