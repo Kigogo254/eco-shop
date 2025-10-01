@@ -32,7 +32,7 @@ export default function AllUsersPage() {
   );
 
   return (
-    <div className="max-w-5xl mx-auto mt-24 p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+    <div className="max-w-5xl mx-auto mt-24 p-6 bg-white min-h-screen rounded-xl shadow-lg border border-gray-200">
       <h1 className="text-3xl font-bold mb-6 bg-gradient-to-r from-yellow-500 via-black to-yellow-700 bg-clip-text text-transparent">
         All Users
       </h1>

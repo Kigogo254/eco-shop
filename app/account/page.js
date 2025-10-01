@@ -22,7 +22,7 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto mt-24 p-6 bg-transparent  bg-gradient-to-br from-green-600 blue-600 to-yellow-700">
+    <div className="max-w-3xl mx-auto mt-24 p-6 bg-transparent min-h-screen  bg-gradient-to-br from-green-600 blue-600 to-yellow-700">
       <h1 className="text-3xl font-bold text-yellow-400 bg-clip-text mb-6">
         Admin Account
       </h1>

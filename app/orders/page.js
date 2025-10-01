@@ -36,7 +36,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto mt-24 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-yellow-700 via-yellow-400 to-black space-y-8 ">
+    <div className="max-w-5xl mx-auto mt-24 min-h-screen px-4 sm:px-6 md:px-8 bg-gradient-to-br from-yellow-700 via-yellow-400 to-black space-y-8 ">
       <h1 className="text-3xl font-bold  text-white">
         Orders
       </h1>
