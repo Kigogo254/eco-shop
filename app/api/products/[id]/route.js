@@ -5,7 +5,7 @@ import {Product} from "../../../models/Product";
 // Delete Product
 export async function DELETE(req, context) {
   await mongooseConnect();
-  const { id } = context.params;
+  const { id } = await context.params;
   await Product.findByIdAndDelete(id);
   return Response.json({ success: true });
 }
@@ -13,10 +13,10 @@ export async function DELETE(req, context) {
 // Update Product
 export async function PUT(req, context) {
   await mongooseConnect();
-  const { id } = context.params;
+  const { id } = await context.params;
   const body = await req.json();
 
-  const { productName, previousPrice, currentPrice, description, reviewStars, numberInStock } = body;
+  const { productName, previousPrice, currentPrice, description, rating, countInStock } = body;
 
   const updatedProduct = await Product.findByIdAndUpdate(
     id,
@@ -26,8 +26,8 @@ export async function PUT(req, context) {
         previousPrice,
         currentPrice,
         description,
-        reviewStars,
-        numberInStock,
+        rating,
+        countInStock,
       },
     },
     { new: true }

@@ -103,7 +103,7 @@ function NavLinks({ onClick }) {
       </li>
       <li>
         <Link
-          href="/all-users"
+          href="/images"
           onClick={onClick}
           className="flex items-center gap-2 hover:text-white transition-colors"
         >

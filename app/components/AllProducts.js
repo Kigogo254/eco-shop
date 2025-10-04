@@ -1,21 +1,21 @@
-
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { HiStar, HiOutlineStar } from "react-icons/hi"; // ⭐ Icons
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
   const [editProduct, setEditProduct] = useState({
-    productName: "",
+    name: "",
     previousPrice: "",
     currentPrice: "",
     description: "",
-    reviewStars: 1,
-    numberInStock: 1,
+    rating: 1,
+    countInStock: 1,
   });
 
   const router = useRouter();
@@ -48,12 +48,12 @@ export default function ProductsPage() {
   function startEditing(product) {
     setEditingId(product._id);
     setEditProduct({
-      productName: product.productName,
+      name: product.name,
       previousPrice: product.previousPrice,
       currentPrice: product.currentPrice,
       description: product.description,
-      reviewStars: product.reviewStars,
-      numberInStock: product.numberInStock,
+      rating: product.rating,
+      countInStock: product.countInStock,
     });
   }
 
@@ -72,7 +72,7 @@ export default function ProductsPage() {
     setEditProduct((prev) => ({
       ...prev,
       [name]:
-        name === "reviewStars" || name === "numberInStock"
+        name === "rating" || name === "numberInStock"
           ? Number(value)
           : value,
     }));
@@ -86,18 +86,15 @@ export default function ProductsPage() {
 
       {/* Loading State */}
       {loading ? (
-  <div className="flex flex-col items-center justify-center mt-10 text-green-800 font-extrabold animate-pulse space-y-4">
-    {/* Spinner */}
-    <div className="w-16 h-16 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
-
-    {/* Text */}
-    <div className="text-center">
-      <p>Fetching all products</p>
-      <p className="text-sm font-norma">
-        This might take a few seconds, please wait!!
-      </p>
-    </div>
-  </div>
+        <div className="flex flex-col items-center justify-center mt-10 text-green-800 font-extrabold animate-pulse space-y-4">
+          <div className="w-16 h-16 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
+          <div className="text-center">
+            <p>Fetching all products</p>
+            <p className="text-sm font-normal">
+              This might take a few seconds, please wait!!
+            </p>
+          </div>
+        </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 p-3 bg-gradient-to-br from-yellow-700 via-yellow-400 to-black">
           {products.map((p) => (
@@ -113,8 +110,8 @@ export default function ProductsPage() {
                   </label>
                   <input
                     type="text"
-                    name="productName"
-                    value={editProduct.productName}
+                    name="name"
+                    value={editProduct.name}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-yellow-400 rounded focus:ring-2 focus:ring-yellow-500 text-gray-800"
                     placeholder="Product Name"
@@ -159,13 +156,13 @@ export default function ProductsPage() {
                     rows={3}
                   />
 
-                  {/* Review Stars */}
+                  {/* Rating */}
                   <label className="block text-sm font-semibold text-yellow-600">
-                    How are the Sales?
+                    Rating
                   </label>
                   <select
-                    name="reviewStars"
-                    value={editProduct.reviewStars}
+                    name="rating"
+                    value={editProduct.rating}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-yellow-400 rounded focus:ring-2 focus:ring-yellow-500 text-gray-800"
                   >
@@ -182,16 +179,16 @@ export default function ProductsPage() {
                   </label>
                   <input
                     type="number"
-                    name="numberInStock"
+                    name="countInStock"
                     min="1"
                     max="50"
-                    value={editProduct.numberInStock}
+                    value={editProduct.countInStock}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-yellow-400 rounded focus:ring-2 focus:ring-yellow-500 text-gray-800"
                     placeholder="Number in Stock"
                   />
 
-                  {/* Save/Cancel Buttons */}
+                  {/* Save/Cancel */}
                   <div className="flex gap-2">
                     <button
                       onClick={() => saveEdit(p._id)}
@@ -209,17 +206,25 @@ export default function ProductsPage() {
                 </div>
               ) : (
                 <div>
-                  {/* Optimized Image */}
-                  <Image
-                    src="/dummy-Product.jpg"
-                    alt="Product"
-                    width={400}
-                    height={300}
-                    className="w-full aspect-[3/2] object-cover mb-4 rounded-lg"
-                  />
+                  {/* Product Image */}
+                  {p?.images?.length > 0 && p.images[0] ? (
+                    <Image
+                      src={p.images[1]}
+                      alt={p.name || "Product"}
+                      width={300}
+                      height={400}
+                      className="w-full aspect-[3/2] object-cover mb-4 rounded-lg"
+                      unoptimized
+                      priority
+                    />
+                  ) : (
+                    <div className="w-full aspect-[3/2] bg-gray-200 flex items-center justify-center mb-4 rounded-lg">
+                      <span className="text-gray-500">No image</span>
+                    </div>
+                  )}
 
                   <h2 className="text-lg font-semibold text-gray-900">
-                    {p.productName}
+                    {p.name}
                   </h2>
                   <p className="text-sm text-gray-600">{p.description}</p>
                   <p className="text-sm">
@@ -231,14 +236,48 @@ export default function ProductsPage() {
                       ${p.currentPrice}
                     </span>
                   </p>
-                  <p className="text-sm text-yellow-600">
-                    ⭐ {p.reviewStars} / 5
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    Stock: {p.numberInStock}
-                  </p>
 
-                  <div className="flex gap-2 mt-3">
+                  {/* ⭐ Rating with stars */}
+                  <div className="flex items-center space-x-1 text-yellow-500 mt-2">
+                    {Array.from({ length: 5 }, (_, i) =>
+                      i < p.rating ? (
+                        <HiStar key={i} className="w-5 h-5" />
+                      ) : (
+                        <HiOutlineStar key={i} className="w-5 h-5" />
+                      )
+                    )}
+                    <span className="ml-2 text-sm text-gray-700">
+                      {p.rating} / 5
+                    </span>
+                  </div>
+
+                  {/* 📦 Stock Bar */}
+                  <div className="mt-3">
+                    <div className="w-full bg-gray-400 rounded-full h-3 overflow-hidden">
+                      <div
+                        className={`h-3 rounded-full ${
+                          p.countInStock >= 35 ? "bg-green-500" : "bg-red-500"
+                        }`}
+                        style={{
+                          width: `${Math.min(p.countInStock * 2, 100)}%`,
+                        }}
+                      />
+                    </div>
+                    <p
+                      className={`mt-1 text-sm font-medium ${
+                        p.countInStock >= 35
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
+                    >
+                      {p.numberInStock >= 35
+                        ? `${p.countInStock} units in stock`
+                        : `${p.countInStock} units left only!`}
+                    </p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-8 mt-3">
                     <button
                       onClick={() => startEditing(p)}
                       className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
@@ -247,7 +286,7 @@ export default function ProductsPage() {
                     </button>
                     <button
                       onClick={() => deleteProduct(p._id)}
-                      className="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition"
+                      className="px-4 py-2  bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition"
                     >
                       Delete
                     </button>
