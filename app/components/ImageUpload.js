@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { useEdgeStore } from "../lib/edgestore";
+import Image from "next/image";
 
 export default function CreateProductPage() {
   const { edgestore } = useEdgeStore();
@@ -96,7 +97,7 @@ export default function CreateProductPage() {
                 key={i}
                 className="relative w-32 h-32 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center"
               >
-                <img
+                <Image
                   src={url}
                   alt={`Uploaded ${i}`}
                   className="w-full h-full object-cover"
